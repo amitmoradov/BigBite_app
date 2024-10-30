@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+    <item>
+        <name>פיצה</name>
+        <price>80</price>
+        <description>פיצה בלי תוספות</description>
+    </item>
+    <item>
+        <name>פיצה עם זיתים</name>
+        <price>80</price>
+        <description>פיצה בלי תוספות</description>
+    </item>
+    <item>
+        <name>סלט יווני</name>
+        <price>30</price>
+        <description>סלט יווני עם עגבניות, מלפפון, גבינה וזיתים</description>
+    </item>
+    <!-- הוסף פריטים נוספים לפי הצורך -->
+</menu>
