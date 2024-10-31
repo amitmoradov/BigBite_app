@@ -16,81 +16,70 @@ import com.example.myapplication.Product;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+    private List<Product> productList;  // המוצרים הזמינים לבחירה
+    private Cart cart;  // הסל שמכיל את המוצרים שהמשתמש בחר
 
-    private static Cart cart;
-
-    public ProductAdapter(Cart cart) {
+    public ProductAdapter(List<Product> productList, Cart cart) {
+        this.productList = productList;
         this.cart = cart;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_menu, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = cart.findProduct(position);
-        holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(String.format("%.2f ₪", product.getPrice()));
-      //  holder.productImageView.setImageResource(product.getImageResource());
-        holder.addButton.setOnClickListener(v -> {
-            cart.addProduct(product);
-            Toast.makeText(v.getContext(), "המוצר נוסף לסל!: " + product.getName(), Toast.LENGTH_SHORT).show();
+        Product product = productList.get(position);
+        holder.productName.setText(product.getName());
+        holder.productPrice.setText("₪" + product.getPrice());
+        holder.quantityTextView.setText(String.valueOf(product.getAmount()));
+        //holder.productImage.setImageResource(product.getImageResource());
+
+        // ניהול כמות
+        holder.increaseButton.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(holder.quantityTextView.getText().toString()) + 1;
+            holder.quantityTextView.setText(String.valueOf(quantity));
+            product.setAmount(quantity); // עדכון כמות המוצר
+        });
+
+        holder.decreaseButton.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(holder.quantityTextView.getText().toString());
+            if (quantity > 1) {
+                quantity--;
+                holder.quantityTextView.setText(String.valueOf(quantity));
+                product.setAmount(quantity); // עדכון כמות המוצר
+            }
+        });
+
+        holder.addToCartButton.setOnClickListener(v -> {
+            cart.addProduct(product); // הוספת המוצר לסל
+            Toast.makeText(holder.itemView.getContext(), product.getName() + " נוסף לסל", Toast.LENGTH_SHORT).show();
         });
     }
 
     @Override
     public int getItemCount() {
-        return cart.getTotalQuantity();
+        return productList.size();
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, priceTextView, quantityTextView;
-        ImageView productImageView;
-        Button addButton, increaseButton, decreaseButton;
+    static class ProductViewHolder extends RecyclerView.ViewHolder {
+        TextView productName, productPrice, quantityTextView;
+        Button addToCartButton, increaseButton, decreaseButton;
+        ImageView productImage;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.productName);
-            priceTextView = itemView.findViewById(R.id.productPrice);
-            productImageView = itemView.findViewById(R.id.productImage);
-            addButton = itemView.findViewById(R.id.addToCartButton);
+            productName = itemView.findViewById(R.id.productName);
+            productPrice = itemView.findViewById(R.id.productPrice);
+            quantityTextView = itemView.findViewById(R.id.quantityTextView);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
             increaseButton = itemView.findViewById(R.id.increaseQuantityButton);
             decreaseButton = itemView.findViewById(R.id.decreaseQuantityButton);
-            quantityTextView = itemView.findViewById(R.id.quantityTextView);
-
-            // הכנת הוספת כמות
-            increaseButton.setOnClickListener(v -> {
-                int currentQuantity = Integer.parseInt(quantityTextView.getText().toString());
-                currentQuantity++;
-                quantityTextView.setText(String.valueOf(currentQuantity));
-            });
-
-            // הכנת הפחתת כמות
-            decreaseButton.setOnClickListener(v -> {
-                int currentQuantity = Integer.parseInt(quantityTextView.getText().toString());
-                if (currentQuantity > 1) { // מוודא שהכמות לא תהיה פחות מ-1
-                    currentQuantity--;
-                    quantityTextView.setText(String.valueOf(currentQuantity));
-                }
-            });
-
-            // הכנת הוספת מוצר לסל
-            addButton.setOnClickListener(v -> {
-                String name = nameTextView.getText().toString();
-                String description = "תיאור זמני"; // תיאור זמני
-                double price = Double.parseDouble(priceTextView.getText().toString().replace("₪", "").trim());
-                int quantity = Integer.parseInt(quantityTextView.getText().toString());
-                boolean available = true;
-
-                Product product = new Product(name, description, price, quantity, available);
-                cart.addProduct(product);
-                Toast.makeText(itemView.getContext(), "המוצר נוסף לסל!", Toast.LENGTH_SHORT).show();
-            });
+            productImage = itemView.findViewById(R.id.productImage);
         }
     }
-
 }

@@ -16,49 +16,58 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MenuActivity extends AppCompatActivity {
-    Cart cart = new Cart();
+import java.util.ArrayList;
+import java.util.List;
 
+public class MenuActivity extends AppCompatActivity {
+    private Cart cart = new Cart();  // ניהול המוצרים שנבחרו לסל
+    private RecyclerView recyclerView;
+    private ProductAdapter productAdapter;
+    private List<Product> availableProducts; // רשימת המוצרים הזמינים להצגה
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        Button addToCartButton = findViewById(R.id.addToCartButton);
-        addToCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // קבלת View של הפריט כולו
-                View productView = (View) view.getParent().getParent();
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                // שליפת שם המוצר
-                TextView nameTextView = productView.findViewById(R.id.productName);
-                String productName = nameTextView.getText().toString();
+        // הגדרת המוצרים הזמינים להצגה (לא לסל)
+        availableProducts = new ArrayList<>();
+        //TOST
+        availableProducts.add(new Tost("טוסט יווני", "תיאור זמני", 28, 1, true,"יווני"));
+        availableProducts.add(new Tost("טוסט חביתה", "תיאור זמני", 28, 1, true,"חביתה"));
+        availableProducts.add(new Tost("באגט ביצים", "תיאור זמני", 28, 1, true,"ביצים"));
+        availableProducts.add(new Tost("באגט בולגרית", "תיאור זמני", 28, 1, true,"בולגרית"));
+        availableProducts.add(new Tost("באגט חביתה", "תיאור זמני", 28, 1, true,"חביתה"));
+        availableProducts.add(new Tost("באגט טונה", "תיאור זמני", 28, 1, true,"טונה"));
 
-                // שליפת המחיר והמרתו למספר
-                TextView priceTextView = productView.findViewById(R.id.productPrice);
-                double price = Double.parseDouble(priceTextView.getText().toString().replace("₪", "").trim());
+        //PIZZA
+        availableProducts.add(new Pizza("פיצה רגילה", "תיאור זמני", 80, 1, true,"משפחתית"));
+        availableProducts.add(new Pizza("פיצה זיתים", "תיאור זמני", 85, 1, true,"משפחתית"));
+        availableProducts.add(new Pizza("קלזון", "תיאור זמני", 20, 1, true,"אישי"));
+        availableProducts.add(new Pizza("פרצל", "תיאור זמני", 20, 1, true,"אישי"));
+        availableProducts.add(new Pizza("לחם שום", "תיאור זמני", 15, 1, true,"אישי"));
 
-                // שליפת כמות
-                TextView quantityTextView = productView.findViewById(R.id.quantityTextView);
-                int quantity = Integer.parseInt(quantityTextView.getText().toString());
+        //PASTA
+        availableProducts.add(new Pasta("פנה שמנת", "תיאור זמני", 32, 1, true,"שמנת","פנה"));
+        availableProducts.add(new Pasta("פנה עגבניות", "תיאור זמני", 32, 1, true,"עגבניות","פנה"));
+        availableProducts.add(new Pasta("לזניה", "תיאור זמני", 32, 1, true,"עגבניות","לזניה"));
 
-                // יצירת אובייקט של המוצר עם הפרטים הנוכחיים
-                Product product = new Product(productName, "תיאור זמני", price, quantity, true);
+        //SALAD
+        availableProducts.add(new Salat("סלט יווני קטן", "תיאור זמני", 30, 1, true,"קטן","יווני"));
+        availableProducts.add(new Salat("סלט טונה קטן", "תיאור זמני", 30, 1, true,"קטן","טונה"));
+        availableProducts.add(new Salat("סלט ביצים קטן", "תיאור זמני", 30, 1, true,"קטן","ביצים"));
+        availableProducts.add(new Salat("סלט ביצים גדול", "תיאור זמני", 50, 1, true,"גדול","ביצים"));
+        availableProducts.add(new Salat("סלט טונה קטן", "תיאור זמני", 50, 1, true,"גדול","ביצים"));
+        availableProducts.add(new Salat("סלט טונה גדול", "תיאור זמני", 50, 1, true,"גדול","יווני"));
 
-                // הוספת המוצר לעגלה
-                cart.addProduct(product);
 
-                // הודעת אישור למשתמש
-                Toast.makeText(MenuActivity.this, product.getName() + " התווסף להזמנה ", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // הוסף עוד מוצרים אם צריך
+
+        // יצירת ה-Adapter עם רשימת המוצרים הזמינים, והעברת ה-Cart לשימוש
+        productAdapter = new ProductAdapter(availableProducts, cart);
+        recyclerView.setAdapter(productAdapter);
     }
 }
