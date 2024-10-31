@@ -4,10 +4,10 @@ public class Tost extends Product{
     private String type;           // סוג הסלט (למשל, יווני, טבולה)
 
     // Constructor
-    public Tost(String name,String descrip, double price, int quantity,boolean avlb, String type) {
+    public Tost(String name,String descrip, double price, int quantity,boolean avlb, int image, String type) {
         super(name, descrip, price, quantity, avlb);
         this.type = type;
-        setId(1);
+        setImageResource(image);
     }
 
     public String getType() { return type; }

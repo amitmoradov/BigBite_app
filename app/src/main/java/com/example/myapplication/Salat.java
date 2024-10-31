@@ -6,11 +6,11 @@ public class Salat extends Product{
     private String type;           // סוג הסלט (למשל, יווני, טבולה)
 
     // Constructor
-    public Salat(String name,String descrip, double price, int quantity,boolean avlb, String size, String type) {
+    public Salat(String name,String descrip, double price, int quantity,boolean avlb, int image, String size, String type) {
         super(name, descrip, price, quantity, avlb);
         this.size = size;
         this.type = type;
-        setId(4);
+        setImageResource(image);
     }
 
     // Getters and Setters

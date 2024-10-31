@@ -1,5 +1,7 @@
 package com.example.myapplication; // שנה את שם החבילה לשם החבילה שלך
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+
+
 
 import com.example.myapplication.Cart;
 import com.example.myapplication.Product;
 
+import java.io.File;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -37,7 +43,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText("₪" + product.getPrice());
         holder.quantityTextView.setText(String.valueOf(product.getAmount()));
-        //holder.productImage.setImageResource(product.getImageResource());
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageResource()) // כאן זה נטען ישירות מתוך ה-Resource ID
+                .placeholder(R.drawable.bigbite) // תמונת placeholder
+                .error(R.drawable.baget_beizim) // תמונת שגיאה
+                .into(holder.productImage);
 
         // ניהול כמות
         holder.increaseButton.setOnClickListener(v -> {
@@ -58,6 +68,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.addToCartButton.setOnClickListener(v -> {
             cart.addProduct(product); // הוספת המוצר לסל
             Toast.makeText(holder.itemView.getContext(), product.getName() + " נוסף לסל", Toast.LENGTH_SHORT).show();
+            Log.d("CartSize", "Cart size after adding product: " + cart.getCartItems());
+
         });
     }
 

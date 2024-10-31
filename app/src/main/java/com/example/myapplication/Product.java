@@ -7,14 +7,16 @@ public class Product {
     protected boolean available;
     protected String name;
     protected String description;
-    protected int id;
+    protected int imageResource;
+
+
     public  Product(){
         this.amount = 0;
         this.available = true;
         this.description = "";
         this.price = 0;
         this.name = "";
-        this.id = 0;
+        this.imageResource = 0;
     }
     public Product(String name, String des, double price, int amount, boolean avlb){
         setAmount(amount);
@@ -22,7 +24,7 @@ public class Product {
         this.available = avlb;
         setPrice(price);
         this.description = des;
-        this.id = 0;
+        this.imageResource = 0;
     }
     //public double calculatePrice(){
     //     return this.price * this.amount;
@@ -41,14 +43,6 @@ public class Product {
         return amount;
     }
 
-    public void setId(int id){
-        if (id < 0){
-            throw new IllegalArgumentException("The id cant be nagative");
-        }
-        this.id = id;
-    }
-    public int getId(){return this.id;}
-
     public void setPrice(double price) {
         if (price < 0){
             throw new IllegalArgumentException("The price cant be nagative");
@@ -56,5 +50,16 @@ public class Product {
         this.price = price;
     }
     public double getPrice(){return this.price;}
+
+    public int getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(int imageResource){
+        if (imageResource < 0){
+            throw new IllegalArgumentException("The imageResource cant be empty");
+        }
+        this.imageResource = imageResource;
+    }
 }
 

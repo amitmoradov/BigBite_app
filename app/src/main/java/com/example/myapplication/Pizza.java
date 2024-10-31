@@ -6,10 +6,10 @@ public class Pizza extends Product{
     private String size;               // גודל הפיצה (קטן, בינוני, גדול)
 
     // Constructor
-    public Pizza(String name,String descrip, double price, int quantity,boolean avlb, String size) {
+    public Pizza(String name,String descrip, double price, int quantity,boolean avlb,int image, String size) {
         super(name,descrip,price,quantity,avlb);
         this.size = size;
-        setId(2);
+        setImageResource(image);
     }
 
     //public List<String> getToppings() { return toppings; }

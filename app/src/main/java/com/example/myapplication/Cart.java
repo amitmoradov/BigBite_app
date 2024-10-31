@@ -11,13 +11,29 @@ public class Cart {
     }
 
     public void addProduct(Product product){
-        products.add(product);
+        if(!findProduct(product.getName())) {
+            products.add(product);
+        }
+        else {
+            product.setAmount(product.getAmount()+1);
+        }
+
     }
+
+    //remove the product from the list. if have more 1 amount so amount--
     public void removeProduct(Product product){
         if(products.isEmpty()){
             throw new IllegalArgumentException("The DataBase is Empty");
         }
-        products.remove(product); // remove the first element that found
+
+        if(findProduct(product.getName())) {
+            if(product.getAmount() > 1){
+                product.setAmount(product.getAmount()-1);
+            }
+            else {
+                products.remove(product);
+            }
+        }
     }
 
     public double getCartTotal(){
@@ -28,27 +44,18 @@ public class Cart {
         return sum;
     }
 
-    public Product findProduct(String name){
+
+    public boolean findProduct(String name){
         if(!products.isEmpty()) {
             for (Product product : products) {
                 if (product.getName().equals(name)) {
-                    return product;
+                    return true;
                 }
             }
         }
-        throw new IllegalArgumentException("The Product is not exist");
+        return false;
     }
 
-    public Product findProduct(int id){
-        if(!products.isEmpty()) {
-            for (Product product : products) {
-                if (product.getId() == id) {
-                    return product;
-                }
-            }
-        }
-        throw new IllegalArgumentException("The Product is not exist");
-    }
 
     // הצגת כמות המוצרים בסל
     public int getTotalQuantity() {
@@ -60,7 +67,11 @@ public class Cart {
     }
 
     public List<Product> getCartItems() {
-        return new ArrayList<>(products); // מחזיר רשימה חדשה כדי למנוע שינויים ברשימה המקורית
+        List<Product> productList = new ArrayList<>();
+        for (int i =0; i < products.size(); i++) {
+           productList.add( products.get(i));
+        }
+        return productList; // מחזיר רשימה חדשה כדי למנוע שינויים ברשימה המקורית
     }
 
     public void clearCart(){

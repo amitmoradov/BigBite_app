@@ -29,7 +29,7 @@
         android:text="תפריט"
         android:textColor="#000000"
         android:textSize="55sp"
-        android:textStyle="bold"
+        android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoImageView" />
@@ -62,7 +62,7 @@
         </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/addToCartButton"
         android:layout_width="60dp"
         android:layout_height="54dp"
         android:layout_marginTop="176dp"
