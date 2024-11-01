@@ -23,11 +23,10 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;  // המוצרים הזמינים לבחירה
-    private Cart cart;  // הסל שמכיל את המוצרים שהמשתמש בחר
+    private Cart cart = CartSingleton.getInstance();
 
     public ProductAdapter(List<Product> productList, Cart cart) {
         this.productList = productList;
-        this.cart = cart;
     }
 
     @NonNull
@@ -49,26 +48,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .error(R.drawable.baget_beizim) // תמונת שגיאה
                 .into(holder.productImage);
 
-        // ניהול כמות
+        // ניהול הכמות בכפתור ה-`+`
         holder.increaseButton.setOnClickListener(v -> {
             int quantity = Integer.parseInt(holder.quantityTextView.getText().toString()) + 1;
             holder.quantityTextView.setText(String.valueOf(quantity));
-            product.setAmount(quantity); // עדכון כמות המוצר
         });
 
+        // ניהול הכמות בכפתור ה-`-`
         holder.decreaseButton.setOnClickListener(v -> {
             int quantity = Integer.parseInt(holder.quantityTextView.getText().toString());
             if (quantity > 1) {
-                quantity--;
+                quantity -= 1;
                 holder.quantityTextView.setText(String.valueOf(quantity));
-                product.setAmount(quantity); // עדכון כמות המוצר
             }
         });
 
+        // כפתור "הוסף לסל" מעדכן את הכמות בעגלה
         holder.addToCartButton.setOnClickListener(v -> {
-            cart.addProduct(product); // הוספת המוצר לסל
-            Toast.makeText(holder.itemView.getContext(), product.getName() + " נוסף לסל", Toast.LENGTH_SHORT).show();
-            Log.d("CartSize", "Cart size after adding product: " + cart.getCartItems());
+            int quantity = Integer.parseInt(holder.quantityTextView.getText().toString());
+
+            // if the product is not exist
+            if (!cart.findProduct(product.getName())) {
+                product.setAmount(quantity);
+                cart.addProduct(product);
+
+            }
+            //if exist
+            else {
+                Product existingProduct = cart.getProduct(product.getName()); // if the product is exist
+                existingProduct.setAmount(existingProduct.getAmount() + quantity); // update the amount
+            }
+
+            Toast.makeText(holder.itemView.getContext(), product.getName() + " נוסף לסל!", Toast.LENGTH_SHORT).show();
+            holder.quantityTextView.setText(String.valueOf(1));
 
         });
     }

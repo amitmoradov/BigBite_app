@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     protected double price;
     protected int amount;
@@ -60,6 +62,15 @@ public class Product {
             throw new IllegalArgumentException("The imageResource cant be empty");
         }
         this.imageResource = imageResource;
+    }
+
+    public void dupProduct(Product pro){
+        this.setAmount(pro.getAmount());
+        this.setPrice(pro.getPrice());
+        this.name = pro.getName();
+        this.imageResource = pro.getImageResource();
+        this.available = pro.available;
+        this.description = pro.description;
     }
 }
 

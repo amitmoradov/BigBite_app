@@ -1,9 +1,10 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+public class Cart implements Serializable {
     protected List<Product> products;
 
     public Cart() {
@@ -54,6 +55,17 @@ public class Cart {
             }
         }
         return false;
+    }
+
+    public Product getProduct(String name){
+        if(!products.isEmpty()) {
+            for (Product product : products) {
+                if (product.getName().equals(name)) {
+                    return product;
+                }
+            }
+        }
+        throw new IllegalArgumentException("The Product is not in DataBase");
     }
 
 

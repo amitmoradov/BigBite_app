@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuActivity extends AppCompatActivity {
-    private Cart cart = new Cart();  // ניהול המוצרים שנבחרו לסל
+    private Cart cart = CartSingleton.getInstance();
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private List<Product> availableProducts; // רשימת המוצרים הזמינים להצגה
@@ -43,8 +43,6 @@ public class MenuActivity extends AppCompatActivity {
                 R.drawable.tost_yevani, "יווני"));
         availableProducts.add(new Tost("טוסט הבית", "תיאור זמני", 28, 1, true,
                 R.drawable.tost_hbait, "הבית"));
-        availableProducts.add(new Tost("טוסט יווני", "תיאור זמני", 28, 1, true,
-                R.drawable.tost_yevani, "יווני"));
 
         availableProducts.add(new Tost("טוסט חביתה", "תיאור זמני", 28, 1, true,
                 R.drawable.baget_havita, "חביתה"));
@@ -90,8 +88,10 @@ public class MenuActivity extends AppCompatActivity {
         shop_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // מעבר ל-ShopCartActivity עם cart
                 Intent intent = new Intent(MenuActivity.this, ShopCartActivity.class);
-                startActivity(intent); // מעבר למסך החדש
+                intent.putExtra("cart", cart); // הוסף את cart ל-Intent
+                startActivity(intent);
             }
         });
     }

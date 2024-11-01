@@ -11,11 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
-    private Cart cart;
-
-    public CartAdapter(Cart cart) {
-        this.cart = cart;
-    }
+    private Cart cart = CartSingleton.getInstance();
 
     @NonNull
     @Override
@@ -36,14 +32,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.removeFromCartButton.setOnClickListener(v -> {
             cart.removeProduct(product);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position, cart.getCartItems().size());
+            notifyItemRangeChanged(position, getItemCount());
             Toast.makeText(holder.itemView.getContext(), product.getName() + " הוסר מהעגלה", Toast.LENGTH_SHORT).show();
         });
     }
 
     @Override
     public int getItemCount() {
-        return cart.getTotalQuantity();
+        return cart.getCartItems().size();
     }
 
     static class CartViewHolder extends RecyclerView.ViewHolder {
