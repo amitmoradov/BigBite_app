@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.model;
 
-public class Salat extends Product{
+public class Salat extends Product {
 
     private String size;           // גודל הסלט (קטן או גדול)
     private String type;           // סוג הסלט (למשל, יווני, טבולה)

@@ -1,7 +1,5 @@
 package com.example.myapplication; // שנה את שם החבילה לשם החבילה שלך
 
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +13,9 @@ import com.bumptech.glide.Glide;
 
 
 
-import com.example.myapplication.Cart;
-import com.example.myapplication.Product;
+import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Product;
 
-import java.io.File;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {

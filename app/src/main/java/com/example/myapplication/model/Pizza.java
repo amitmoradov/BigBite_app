@@ -1,8 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.model;
 
-import java.util.List;
-
-public class Pizza extends Product{
+public class Pizza extends Product {
     private String size;               // גודל הפיצה (קטן, בינוני, גדול)
 
     // Constructor

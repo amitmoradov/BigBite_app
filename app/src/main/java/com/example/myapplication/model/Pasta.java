@@ -1,6 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.model;
 
-public class Pasta extends Product{
+public class Pasta extends Product {
 
     private String sauceType;         // סוג רוטב (עגבניות, שמנת)
     private String pastaType;         // סוג הפסטה (פנה, ספגטי)

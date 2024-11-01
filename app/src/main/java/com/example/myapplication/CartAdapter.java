@@ -8,7 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
+
+import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Product;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
     private Cart cart = CartSingleton.getInstance();
