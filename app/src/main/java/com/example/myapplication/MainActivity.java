@@ -26,17 +26,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button menu_btn = findViewById(R.id.menu);
-        Button invitation_btn = findViewById(R.id.invitation);
+        Button checkoutButton = findViewById(R.id.invitation);
         Button help_btn = findViewById(R.id.help);
 
-        /*
-        menu_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "לחצת על כפתור 1!", Toast.LENGTH_SHORT).show();
-            }
-        });
-         */
 
         help_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //payment button
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
                 startActivity(intent);
             }
         });

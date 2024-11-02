@@ -87,7 +87,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // מעבר ל-ShopCartActivity עם cart
                 Intent intent = new Intent(MenuActivity.this, ShopCartActivity.class);
-                intent.putExtra("cart", cart); // הוסף את cart ל-Intent
+               // intent.putExtra("cart", cart); // הוסף את cart ל-Intent
                 startActivity(intent);
             }
         });

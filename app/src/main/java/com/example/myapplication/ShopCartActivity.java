@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.example.myapplication.model.Cart;
 
 public class ShopCartActivity extends AppCompatActivity {
 
-    private Cart cart = CartSingleton.getInstance();
+    private Cart cart = CartSingleton.getInstance(); // שימוש ב-Singleton
     private RecyclerView cartRecyclerView;
     private CartAdapter cartAdapter;
     private TextView totalPriceTextView;
@@ -25,36 +26,30 @@ public class ShopCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_cart);
 
-        cart = (Cart) getIntent().getSerializableExtra("cart");
-
-        if (cart == null) {
-            cart = new Cart();
-        }
-        cartRecyclerView = findViewById(R.id.cartRecyclerView);
-        cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        cartAdapter = new CartAdapter();
-        cartRecyclerView.setAdapter(cartAdapter);
-        Log.d("CartItems", "Number of items in cart: " + cart.getTotalQuantity());
-
-        updateTotalPrice();
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         checkoutButton = findViewById(R.id.checkoutButton);
-        // הגדרת כפתור התשלום
+
+        // הגדרת RecyclerView
+        cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        cartAdapter = new CartAdapter(totalPriceTextView); // יצירת CartAdapter
+        cartRecyclerView.setAdapter(cartAdapter);
+
+        // עדכון סכום כולל
+        updateTotalPrice();
+
+        //payment button
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // כאן ניתן להוסיף את הפעולה למעבר לתשלום, כגון Intent למסך תשלום
-                // לדוגמה:
-                // Intent intent = new Intent(ShopCartActivity.this, PaymentActivity.class);
-                // startActivity(intent);
+                Intent intent = new Intent(ShopCartActivity.this, PaymentActivity.class);
+                startActivity(intent);
             }
         });
-
     }
+
     private void updateTotalPrice() {
-        double total = cart.getCartTotal();  // קבלת סך התשלום מהעגלה
+        double total = cart.getCartTotal();
         totalPriceTextView.setText("סה״כ לתשלום: ₪" + total);
     }
 }

@@ -5,6 +5,116 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentActivity">
+    android:padding="16dp"
+    tools:context=".PaymentActivity"
+    android:background="#FAFAFA">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/bigbite"
+        android:alpha="0.2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- כותרת לעמוד -->
+
+    <!-- שדה שם בעל הכרטיס -->
+
+    <!-- שדה מספר כרטיס אשראי -->
+    <TextView
+        android:id="@+id/paymentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:text="פרטי תשלום"
+        android:textColor="#020202"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cardHolderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#BDBDBD"
+        android:hint="שם בעל הכרטיס"
+        android:padding="12dp"
+        android:textColor="#333333"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentTitle" />
+
+    <EditText
+        android:id="@+id/cardNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="מספר כרטיס אשראי"
+        android:padding="12dp"
+        android:backgroundTint="#BDBDBD"
+        android:inputType="number"
+        android:textColor="#333333"
+        android:textColorHint="#757575"
+        app:layout_constraintTop_toBottomOf="@id/cardHolderName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <!-- שדה תוקף הכרטיס -->
+    <EditText
+        android:id="@+id/cardExpiryDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="תוקף כרטיס (MM/YY)"
+        android:padding="12dp"
+        android:backgroundTint="#BDBDBD"
+        android:inputType="number"
+        android:textColor="#333333"
+        android:textColorHint="#757575"
+        app:layout_constraintTop_toBottomOf="@id/cardNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <!-- שדה CVV -->
+    <EditText
+        android:id="@+id/cardCvv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="CVV"
+        android:padding="12dp"
+        android:backgroundTint="#BDBDBD"
+        android:inputType="numberPassword"
+        android:textColor="#333333"
+        android:textColorHint="#757575"
+        app:layout_constraintTop_toBottomOf="@id/cardExpiryDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp" />
+
+    <!-- כפתור שלם -->
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#DE1515"
+        android:fontFamily="sans-serif-medium"
+        android:padding="14dp"
+        android:text="שלם"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardCvv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

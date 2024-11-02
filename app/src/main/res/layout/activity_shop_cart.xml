@@ -71,6 +71,7 @@
         android:backgroundTint="#DE1515"
         android:text="עבור לתשלום"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

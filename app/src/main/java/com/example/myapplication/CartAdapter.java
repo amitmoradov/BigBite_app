@@ -14,12 +14,18 @@ import com.example.myapplication.model.Product;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>{
     private Cart cart = CartSingleton.getInstance();
+    private TextView totalPriceTextView;
+
+    public CartAdapter(TextView totalPriceTextView) {
+        this.totalPriceTextView = totalPriceTextView;
+    }
 
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
         return new CartViewHolder(view);
+
     }
 
     @Override
@@ -36,6 +42,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, getItemCount());
             Toast.makeText(holder.itemView.getContext(), product.getName() + " הוסר מהעגלה", Toast.LENGTH_SHORT).show();
+            updateTotalPrice();
         });
     }
 
@@ -57,5 +64,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartItemImage = itemView.findViewById(R.id.cartItemImage);
             removeFromCartButton = itemView.findViewById(R.id.removeFromCartButton);
         }
+    }
+
+
+    private void updateTotalPrice() {
+        double total = cart.getCartTotal();  // חישוב סך התשלום
+        totalPriceTextView.setText("סה״כ לתשלום: ₪" + total);
     }
 }
