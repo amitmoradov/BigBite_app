@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +14,7 @@ import com.example.myapplication.model.Cart;
 
 public class ShopCartActivity extends AppCompatActivity {
 
-    private Cart cart = CartSingleton.getInstance(); // שימוש ב-Singleton
+    private Cart cart = CartSingleton.getInstance(); // -Singleton
     private RecyclerView cartRecyclerView;
     private CartAdapter cartAdapter;
     private TextView totalPriceTextView;
@@ -30,12 +29,12 @@ public class ShopCartActivity extends AppCompatActivity {
         totalPriceTextView = findViewById(R.id.totalPriceTextView);
         checkoutButton = findViewById(R.id.checkoutButton);
 
-        // הגדרת RecyclerView
+        //  RecyclerView
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        cartAdapter = new CartAdapter(totalPriceTextView); // יצירת CartAdapter
+        cartAdapter = new CartAdapter(totalPriceTextView); //  CartAdapter
         cartRecyclerView.setAdapter(cartAdapter);
 
-        // עדכון סכום כולל
+
         updateTotalPrice();
 
         //payment button

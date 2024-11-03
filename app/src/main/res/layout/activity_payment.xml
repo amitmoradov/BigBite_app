@@ -9,6 +9,7 @@
     tools:context=".PaymentActivity"
     android:background="#FAFAFA">
 
+    <!-- Existing UI elements -->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="150dp"
@@ -20,11 +21,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- כותרת לעמוד -->
-
-    <!-- שדה שם בעל הכרטיס -->
-
-    <!-- שדה מספר כרטיס אשראי -->
     <TextView
         android:id="@+id/paymentTitle"
         android:layout_width="wrap_content"
@@ -44,12 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#BDBDBD"
-        android:hint="שם בעל הכרטיס"
+        android:hint="ת.ז. בעל הכרטיס"
         android:padding="12dp"
+        android:inputType="number"
         android:textColor="#333333"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/paymentTitle" />
 
@@ -68,7 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp" />
 
-    <!-- שדה תוקף הכרטיס -->
     <EditText
         android:id="@+id/cardExpiryDate"
         android:layout_width="0dp"
@@ -84,7 +79,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp" />
 
-    <!-- שדה CVV -->
     <EditText
         android:id="@+id/cardCvv"
         android:layout_width="0dp"
@@ -100,12 +94,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp" />
 
-    <!-- כפתור שלם -->
+    <!-- TextView to show the total amount to be paid -->
+    <TextView
+        android:id="@+id/totalAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="סה״כ לתשלום: ₪0"
+        android:textColor="#0B0B0B"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardCvv" />
+
     <Button
         android:id="@+id/payButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#DE1515"
         android:fontFamily="sans-serif-medium"
         android:padding="14dp"
@@ -113,8 +120,7 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardCvv" />
+        app:layout_constraintTop_toBottomOf="@id/totalAmountTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

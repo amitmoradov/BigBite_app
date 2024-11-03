@@ -8,10 +8,10 @@ public class CartSingleton {
 
     private static Cart cartInstance = null;
 
-    // קונסטרקטור פרטי כדי למנוע יצירת עותקים מחוץ למחלקה
+    // private constructor to prevent the creation of new instances
     private CartSingleton() {}
 
-    // פונקציה שמחזירה את המופע היחיד של ה-Cart
+    //return the one show of the cart
     public static Cart getInstance() {
         if (cartInstance == null) {
             cartInstance = new Cart();
