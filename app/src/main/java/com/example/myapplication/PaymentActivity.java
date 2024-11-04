@@ -54,6 +54,12 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(PaymentActivity.this, "נא למלא את כל השדות", Toast.LENGTH_SHORT).show();
                     return; // Stop the process if the files is not correct or empty
                 }
+                if(TextUtils.equals("סה״כ לתשלום: ₪0.0",totalAmountTextView.getText())){
+                    Toast.makeText(PaymentActivity.this, "אנא בחר מוצרים לקנייה", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PaymentActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 showLoadingDialog(); //Show the loading message
 
                 /** Creating a treadmill that occupies the processor
@@ -72,6 +78,11 @@ public class PaymentActivity extends AppCompatActivity {
                         totalAmountTextView.setText("סה״כ לתשלום: ₪" + cart.getCartTotal());
                         hideLoadingDialog(); // Hides the loading message
                         clearAllFields();
+                        Toast.makeText(PaymentActivity.this, "התשלום בוצע בהצלחה", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                        startActivity(intent);
+
+
                     });
                 }).start();
             }
